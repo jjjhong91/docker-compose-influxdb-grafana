@@ -9,3 +9,13 @@ datasources:
     url: http://influxdb:8086
     isDefault: true
     editable: true
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    database: db1
+    user: postgres
+    password: postgres
+    url: postgres:5432
+    isDefault: false
+    editable: true
+    postgresVersion: 1200
