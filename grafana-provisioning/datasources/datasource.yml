@@ -9,6 +9,10 @@ datasources:
     url: http://influxdb:8086
     isDefault: true
     editable: true
+    jsonData:
+      version: Flux
+      organization: joe
+      token: xBZJAvhR1VpOTd-3z4FVULkk8G3FeB756Y4Czh-jgHLOIz5i1rI4JLabLCFflKMrDavNVsTO1SII6w4v22UTBg==
   - name: PostgreSQL
     type: postgres
     access: proxy
@@ -18,4 +22,5 @@ datasources:
     url: postgres:5432
     isDefault: false
     editable: true
-    postgresVersion: 1200
+    jsonData:
+      postgresVersion: 1200

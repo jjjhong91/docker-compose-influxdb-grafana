@@ -77,3 +77,16 @@ To provision additional data sources, see the Grafana [documentation](http://doc
 By default, the app does not create any Grafana dashboards. An example dashboard that's configured to work with [artillery-plugin-influxdb](https://github.com/Nordstrom/artillery-plugin-influxdb) is located at `./grafana-provisioning/dashboards/artillery.json.example`. To use this dashboard, rename it to `artillery.json`.
 
 To provision additional dashboards, see the Grafana [documentation](http://docs.grafana.org/administration/provisioning/#dashboards) and add a config file to `./grafana-provisioning/dashboards/` before starting the app.
+
+
+## Run Grafana container using bind mounts
+
+You may want to run Grafana in Docker but use folders on your host for the database or configuration. When doing so, it becomes important to start the container with a user that is able to access and write to the folder you map into the container.
+
+```
+mkdir data # creates a folder for your data
+ID=$(id -u) # saves your user id in the ID variable
+
+# starts grafana with your user id and using the data folder
+docker run -d --user $ID --volume "$PWD/data:/var/lib/grafana" -p 3000:3000 grafana/grafana-enterprise:8.2.1
+```

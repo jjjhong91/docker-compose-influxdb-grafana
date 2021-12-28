@@ -22,6 +22,12 @@ services:
       - INFLUXDB_DB=db0
       - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=1qaz@WSX
+      - DOCKER_INFLUXDB_INIT_ORG=joe
+      - DOCKER_INFLUXDB_INIT_BUCKET=joe
+      - DOCKER_INFLUXDB_INIT_RETENTION=1d
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=xBZJAvhR1VpOTd-3z4FVULkk8G3FeB756Y4Czh-jgHLOIz5i1rI4JLabLCFflKMrDavNVsTO1SII6w4v22UTBg==
   chronograf:
     container_name: chronograf
     image: chronograf:latest
@@ -40,9 +46,11 @@ services:
     image: grafana/grafana:latest
     ports:
       - '3000:3000'
+    user: '1000'
     volumes:
-      - grafana-storage:/var/lib/grafana
+      - ./data:/var/lib/grafana
       - ./grafana-provisioning/:/etc/grafana/provisioning
+      # - ./dashboards/:/var/lib/grafana/dashboards
     depends_on:
       - influxdb
     environment:
@@ -51,5 +59,5 @@ services:
 volumes:
   influxdb-storage:
   chronograf-storage:
-  grafana-storage:
+  # grafana-storage:
   postgres-storage:
